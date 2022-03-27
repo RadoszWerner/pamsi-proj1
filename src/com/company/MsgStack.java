@@ -1,6 +1,6 @@
 package com.company;
 
-public class MsgStack {
+public class MsgStack implements Cloneable{
 
     private Package head, tail;
     private int size;
@@ -27,18 +27,43 @@ public class MsgStack {
         size++;
     }
 
-    public void popHead() throws EmptyException {
+    public Package popHead() throws EmptyException {
         if(size == 0){
             throw new EmptyException("No packages!");
         }
-        else{
+        if (size>1) {
+            int key = head.key;
+            String value = head.value;
+            Package tempPackage = new Package(key, value);
             head.previousPackage.nextPackage = null;
             head = head.previousPackage;
-
+            --size;
+            return tempPackage;
+        }
+        else{
+            int key = head.key;
+            String value = head.value;
+            Package tempPackage = new Package(key, value);
+            --size;
+            return tempPackage;
         }
     }
 
-
+    public void showMsgStack() throws EmptyException{
+        if(size == 0){
+            throw new EmptyException("No packages!");
+        }else {
+            try{
+                MsgStack tempPackageList = (MsgStack) this.clone();
+                for (int i = 0; i < size; i++) {
+                    Package tempPackage = tempPackageList.popHead();
+                    System.out.println("Key: " + tempPackage.key + " . Value: " + tempPackage.value);
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
 
 
     private static final class Package {

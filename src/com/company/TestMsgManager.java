@@ -7,5 +7,6 @@ public class TestMsgManager {
         msgManager.InsertMessage();
         msgManager.ViewMessage();
         msgManager.ConvertMsg(10, ourMsg);
+        msgManager.showConvertedMsg(ourMsg);
     }
 }

@@ -32,9 +32,18 @@ public class MsgManager {
             }
             else{
                 ourMsg.insert(iterator++, tempTextMsg);
+                tempTextMsg=null;
             }
         }
+    }
 
+    public void showConvertedMsg(MsgStack ourMsg){
+        try {
+            ourMsg.showMsgStack();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 }
 
