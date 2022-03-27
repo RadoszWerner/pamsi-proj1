@@ -1,71 +1,99 @@
 package com.company;
 
 public class MsgStack {
-    private String value;
-    private int key;
-    private MsgStack msgPackage;
 
+    private Package head, tail;
+    private int size;
 
     public MsgStack() {
-    }
-
-    public MsgStack(String value, int key) {
-        this.value = value;
-        this.key = key;
-        msgPackage = null;
-    }
-
-    public MsgStack(String value, int key, MsgStack msgPackage) {
-        this.value = value;
-        this.key = key;
-        this.msgPackage = msgPackage;
-    }
-
-    public String getValue() {
-        return value;
-    }
-
-    public void setValue(String value) {
-        this.value = value;
-    }
-
-    public int getKey() {
-        return key;
-    }
-
-    public void setKey(int key) {
-        this.key = key;
-    }
-
-    public MsgStack getMsgPackage() {
-        return msgPackage;
-    }
-
-    public void setMsgPackage(MsgStack msgPackage) {
-        this.msgPackage = msgPackage;
-    }
-
-    public void insert(String value, int key){
-        MsgStack newPackage = new MsgStack(value, key);
-        newPackage.msgPackage = null;
-        msgPackage = newPackage;
-    }
-
-    public void delElement(){
-        msgPackage = null;
+        size = 0;
+        head = new Package();
+        tail = new Package();
     }
 
     public boolean isEmpty(){
-        if (msgPackage==null){
-            return true;
+        return(size == 0);
+    }
+
+    public void insert(int key, String value) {
+        if (isEmpty()) {
+            head = tail = new Package(key, value);
+        }
+        else {
+            Package newPackage = new Package(key, value, head);
+            head.nextPackage = newPackage;
+            head = newPackage;
+        }
+        size++;
+    }
+
+    public void popHead() throws EmptyException {
+        if(size == 0){
+            throw new EmptyException("No packages!");
         }
         else{
-            return false;
+            head.previousPackage.nextPackage = null;
+            head = head.previousPackage;
+
         }
     }
 
 
 
 
+    private static final class Package {
+        private int key;
+        private String value;
+        private Package nextPackage, previousPackage;
+
+        public Package(int key, String value, Package previousPackage) {
+            this.key = key;
+            this.value = value;
+            this.previousPackage = previousPackage;
+            this.nextPackage = null;
+        }
+
+        public Package getPreviousPackage() {
+            return previousPackage;
+        }
+
+        public void setPreviousPackage(Package previousPackage) {
+            this.previousPackage = previousPackage;
+        }
+
+        public Package getNextPackage() {
+            return nextPackage;
+        }
+
+        public void setNextPackage(Package nextPackage) {
+            this.nextPackage = nextPackage;
+        }
+
+        public Package() {
+        }
+
+        public Package(int key, String value) {
+            this.key = key;
+            this.value = value;
+            nextPackage = null;
+            previousPackage = null;
+        }
+
+        public String getValue() {
+            return value;
+        }
+
+        public void setValue(String value) {
+            this.value = value;
+        }
+
+        public int getKey() {
+            return key;
+        }
+
+        public void setKey(int key) {
+            this.key = key;
+        }
+    }
 
 }

@@ -5,7 +5,7 @@ import java.util.Scanner;
 public class Main {
 
     public static void main(String[] args) {
-        TerminalMsg terminalMsg1 = new TerminalMsg();
+        MsgManager msgManager = new MsgManager();
         int c = 0;
         while (c != 3) {
             System.out.println("1. Napisz wiadomość w terminalu.");
@@ -16,8 +16,8 @@ public class Main {
             c = scanner.nextInt();
             switch (c) {
                 case 1:
-                    terminalMsg1.InsertMessage();
-                    terminalMsg1.ViewMessage();
+                    msgManager.InsertMessage();
+                    msgManager.ViewMessage();
                     break;
                 case 2:
                     //LoadMsg();
@@ -25,6 +25,7 @@ public class Main {
                 default:
                     break;
             }
+            //proline
         }
     }
 }
