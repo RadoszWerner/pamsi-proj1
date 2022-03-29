@@ -85,6 +85,7 @@ public class MsgManager {
             stackedTxtMsg = stackedTxtMsg.sort();
             System.out.println("Odebrano wiadomość!: ");
             stackedTxtMsg.showWholeMsg();
+            System.out.println("");
         }
         catch(Exception e){
             System.out.println(e.getMessage());
