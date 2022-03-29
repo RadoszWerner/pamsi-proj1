@@ -142,14 +142,33 @@ public class MsgStack implements Cloneable{
             throw new EmptyException("Stos pusty!");
         }
         MsgStack sortedStack = new MsgStack();
+        System.out.println("Sprawdzamy, czy stos nie jest pusty (tylko dla 1 operacji)");
         while(!isEmpty()){
             Package oldPackage = popHead();
 
+            if (sortedStack.isEmpty()) {
+                System.out.println("Stos docelowy jest pusty, wiec wrzucamy pierwsza wartosc - "+oldPackage.getKey() + ".");
+            }
+            else{
+                System.out.println("sprawdzamy czy wartosc key elementu z stosu tymczasowego ("+oldPackage.getKey()+")");
+                System.out.println("jest większy od wartosci key elementu z docelowo posortowanego stosu ("+sortedStack.showHead().getKey() + ")");
+            }
+
             while(!sortedStack.isEmpty() && sortedStack.showHead().getKey() < oldPackage.getKey()){
+                System.out.println(oldPackage.getKey() + " jest większy od " + sortedStack.showHead().getKey() + " wiec zwracamy go do stosu do posortowania.");
                 Package tempPackage = sortedStack.popHead();
                 insert(tempPackage.getKey(), tempPackage.getValue());
             }
+
+            if (sortedStack.isEmpty()) {
+                System.out.println("");
+            }
+            else{
+                System.out.println(oldPackage.getKey() + " jest mniejsze od " + sortedStack.showHead().getKey() + " wiec dodajemy "+ oldPackage.getKey()+  " do stosu posortowanego.");
+            }
+
             sortedStack.insert(oldPackage.getKey(), oldPackage.getValue());
+
         }
         return sortedStack;
     }
