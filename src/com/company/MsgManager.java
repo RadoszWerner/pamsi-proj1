@@ -45,5 +45,15 @@ public class MsgManager {
             System.out.println(e.getMessage());
         }
     }
+
+    public MsgStack shuffleMsg(MsgStack ourMsg){
+        try {
+            return(ourMsg.shuffle());
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
+        return ourMsg;
+    }
 }
 

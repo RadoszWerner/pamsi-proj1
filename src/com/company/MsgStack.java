@@ -1,5 +1,8 @@
 package com.company;
 
+import java.util.ArrayList;
+import java.util.Collections;
+
 public class MsgStack implements Cloneable{
 
     private Package head, tail;
@@ -65,6 +68,37 @@ public class MsgStack implements Cloneable{
         }
     }
 
+    public MsgStack shuffle() throws EmptyException {
+        if(size == 0){
+            throw new EmptyException("No packages!");
+        }
+        else{
+            ArrayList<Integer> numbers = new ArrayList<>();
+            for (int i = 0; i < size ; i++) {
+                numbers.add(i);
+            }
+            Collections.shuffle(numbers);
+            MsgStack shuffledStack = new MsgStack();
+            try {
+                for (int i = 0; i < size; i++) {
+
+                    MsgStack tempPackageList = (MsgStack) this.clone();
+
+                    int drawnNumber = numbers.remove(0);
+                    for (int j = 0; j < size; j++) {
+                        Package tempPackage = tempPackageList.popHead();
+
+                        if (tempPackage.getKey() == drawnNumber) {
+                            shuffledStack.insert(tempPackage.getKey(), tempPackage.getValue());
+                        }
+                    }
+                }
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+            return shuffledStack;
+        }
+    }
 
     private static final class Package {
         private int key;
