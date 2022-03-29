@@ -3,8 +3,10 @@ package com.company;
 import java.util.Scanner;
 
 public class MsgManager {
-
+    
     String fullTxtMsg;
+    MsgStack stackedTxtMsg = new MsgStack();
+    int packageSize = 10;
 
 
     public void InsertMessage(){
@@ -18,7 +20,7 @@ public class MsgManager {
         System.out.println(fullTxtMsg);
     }
 
-    public void ConvertMsg(int number, MsgStack ourMsg) {
+    public void ConvertMsg(int number) {
 
         String tempTextMsg=fullTxtMsg;
         String msg;
@@ -27,33 +29,66 @@ public class MsgManager {
             if(tempTextMsg.length()>number){
                 msg=tempTextMsg.substring(0, number);
                 tempTextMsg=tempTextMsg.substring(number);
-                ourMsg.insert(iterator, msg);
+                stackedTxtMsg.insert(iterator, msg);
                 iterator++;
             }
             else{
-                ourMsg.insert(iterator++, tempTextMsg);
+                stackedTxtMsg.insert(iterator++, tempTextMsg);
                 tempTextMsg=null;
             }
         }
     }
 
-    public void showConvertedMsg(MsgStack ourMsg){
+//    public void showConvertedMsg(){
+//        try {
+//            stackedTxtMsg.showMsgStack();
+//        }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//    }
+
+//    public MsgStack shuffleMsg(MsgStack stackedTxtMsg){
+//        try {
+//            return(stackedTxtMsg.shuffle());
+//        }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        return stackedTxtMsg;
+//    }
+
+//    public MsgStack sortMsg(MsgStack stackedTxtMsg){
+//        try{
+//            return(stackedTxtMsg.sort());
+//        }
+//        catch(Exception e){
+//            System.out.println(e.getMessage());
+//        }
+//        return stackedTxtMsg;
+//    }
+
+    public void sendMyMsg(){
+        InsertMessage();
+        ConvertMsg(packageSize);
         try {
-            ourMsg.showMsgStack();
+            stackedTxtMsg = stackedTxtMsg.shuffle();
+            System.out.println("Wysłano wiadomość!");
         }
         catch(Exception e){
             System.out.println(e.getMessage());
         }
     }
 
-    public MsgStack shuffleMsg(MsgStack ourMsg){
+    public void receiveMyMsg(){
         try {
-            return(ourMsg.shuffle());
+            stackedTxtMsg = stackedTxtMsg.sort();
+            System.out.println("Odebrano wiadomość!: ");
+            stackedTxtMsg.showWholeMsg();
         }
         catch(Exception e){
             System.out.println(e.getMessage());
         }
-        return ourMsg;
     }
 }
 

@@ -5,7 +5,8 @@ import java.util.Collections;
 
 public class MsgStack implements Cloneable{
 
-    private Package head, tail;
+    private Package head;
+    private Package tail;
     private int size;
 
     public MsgStack() {
@@ -32,9 +33,9 @@ public class MsgStack implements Cloneable{
 
     public Package popHead() throws EmptyException {
         if(size == 0){
-            throw new EmptyException("No packages!");
+            throw new EmptyException("Stos pusty!");
         }
-        if (size>1) {
+        else if (size>1) {
             int key = head.key;
             String value = head.value;
             Package tempPackage = new Package(key, value);
@@ -52,9 +53,27 @@ public class MsgStack implements Cloneable{
         }
     }
 
+    public Package showHead() throws EmptyException {
+        if(size == 0){
+            throw new EmptyException("Stos pusty!");
+        }
+        else if (size>1) {
+            int key = head.key;
+            String value = head.value;
+            Package tempPackage = new Package(key, value);
+            return tempPackage;
+        }
+        else{
+            int key = head.key;
+            String value = head.value;
+            Package tempPackage = new Package(key, value);
+            return tempPackage;
+        }
+    }
+
     public void showMsgStack() throws EmptyException{
         if(size == 0){
-            throw new EmptyException("No packages!");
+            throw new EmptyException("Stos pusty!");
         }else {
             try{
                 MsgStack tempPackageList = (MsgStack) this.clone();
@@ -68,9 +87,27 @@ public class MsgStack implements Cloneable{
         }
     }
 
+    public void showWholeMsg() throws EmptyException{
+        if(size == 0){
+            throw new EmptyException("Stos pusty!");
+        }else {
+            try{
+                MsgStack tempPackageList = (MsgStack) this.clone();
+                System.out.println("");
+                for (int i = 0; i < size; i++) {
+                    Package tempPackage = tempPackageList.popHead();
+                    System.out.print(tempPackage.value);
+                }
+                System.out.println("");
+            }catch (Exception e){
+                System.out.println(e.getMessage());
+            }
+        }
+    }
+
     public MsgStack shuffle() throws EmptyException {
         if(size == 0){
-            throw new EmptyException("No packages!");
+            throw new EmptyException("Stos pusty!");
         }
         else{
             ArrayList<Integer> numbers = new ArrayList<>();
@@ -98,6 +135,39 @@ public class MsgStack implements Cloneable{
             }
             return shuffledStack;
         }
+    }
+
+    public MsgStack sort() throws EmptyException{
+        if (size==0){
+            throw new EmptyException("Stos pusty!");
+        }
+        MsgStack sortedStack = new MsgStack();
+        while(!isEmpty()){
+            Package oldPackage = popHead();
+
+            while(!sortedStack.isEmpty() && sortedStack.showHead().getKey() < oldPackage.getKey()){
+                Package tempPackage = sortedStack.popHead();
+                insert(tempPackage.getKey(), tempPackage.getValue());
+            }
+            sortedStack.insert(oldPackage.getKey(), oldPackage.getValue());
+        }
+        return sortedStack;
+    }
+
+    public Package getHead() {
+        return head;
+    }
+
+    public void setHead(Package head) {
+        this.head = head;
+    }
+
+    public Package getTail() {
+        return tail;
+    }
+
+    public void setTail(Package tail) {
+        this.tail = tail;
     }
 
     private static final class Package {
