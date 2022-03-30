@@ -9,18 +9,18 @@ public class MsgManager {
     int packageSize = 10;
 
 
-    public void InsertMessage(){
+    public void insertMessage(){
         System.out.println("Podaj swoją wiadomość:");
         Scanner scanner = new Scanner(System.in);
         fullTxtMsg = scanner.nextLine();
     }
 
-    public void ViewMessage(){
+    public void viewMessage(){
         System.out.println("Twoja wiadomość:");
         System.out.println(fullTxtMsg);
     }
 
-    public void ConvertMsg(int number) {
+    public void convertMsg(int number) {
 
         String tempTextMsg=fullTxtMsg;
         String msg;
@@ -69,8 +69,15 @@ public class MsgManager {
 //    }
 
     public void sendMyMsg(){
-        InsertMessage();
-        ConvertMsg(packageSize);
+        insertMessage();
+        convertMsg(packageSize);
+        try{
+            System.out.println("Wiadomość na stosie początkowym:");
+            stackedTxtMsg.showMsgStack();
+        }
+        catch(Exception e){
+            System.out.println(e.getMessage());
+        }
         try {
             stackedTxtMsg = stackedTxtMsg.shuffle();
             System.out.println("Wysłano wiadomość!");
@@ -83,6 +90,13 @@ public class MsgManager {
     public void receiveMyMsg(){
         try {
             stackedTxtMsg = stackedTxtMsg.sort();
+            try{
+                System.out.println("Posortowana wiadomość na stosie:");
+                stackedTxtMsg.showMsgStack();
+            }
+            catch(Exception e){
+                System.out.println(e.getMessage());
+            }
             System.out.println("Odebrano wiadomość!: ");
             stackedTxtMsg.showWholeMsg();
             System.out.println("");

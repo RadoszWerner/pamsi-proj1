@@ -21,6 +21,7 @@ public class Menu {
                 default -> {
                 }
             }
+            //Wszystko czego tylko dotkne to staje sie zlotem to staje sie zlotem midas midas midas
             //proline
         }
     }

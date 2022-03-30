@@ -110,6 +110,7 @@ public class MsgStack implements Cloneable{
             throw new EmptyException("Stos pusty!");
         }
         else{
+            System.out.println("Zaczynamy losowanie! - symulacja wysyłania");
             ArrayList<Integer> numbers = new ArrayList<>();
             for (int i = 0; i < size ; i++) {
                 numbers.add(i);
@@ -133,6 +134,8 @@ public class MsgStack implements Cloneable{
             }catch (Exception e){
                 System.out.println(e.getMessage());
             }
+            System.out.println("Nasz zrandomizowany stos:");
+            shuffledStack.showMsgStack();
             return shuffledStack;
         }
     }
